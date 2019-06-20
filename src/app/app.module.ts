@@ -1,3 +1,6 @@
+import { GageService } from './gages/services/gage.service';
+import { GageListComponent } from './gages/gage-list.component';
+import { GageModule } from './gages/gage.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -6,13 +9,15 @@ import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    GageListComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    GageModule
   ],
-  providers: [],
+  providers: [GageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
