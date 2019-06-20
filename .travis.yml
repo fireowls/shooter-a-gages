@@ -1,0 +1,36 @@
+dist: trusty
+sudo: false
+
+language: node_js
+node_js:
+  - "10"
+
+addons:
+  apt:
+    sources:
+      - google-chrome
+    packages:
+      - google-chrome-stable
+
+cache:
+  directories:
+     - ./node_modules
+
+install:
+  - npm install
+
+script:
+  - npm run test -- --watch=false --progress=false --browsers=ChromeHeadlessCI
+  - npm run e2e -- --protractor-config=./e2e/protractor-ci.conf.js
+
+after_success:
+  - npm run build:gh-pages
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
+  keep_history: true
+  local-dir: gh-pages
+  on:
+    branch: master
